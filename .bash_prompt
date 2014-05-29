@@ -47,11 +47,18 @@ function parse_git_branch() {
 	local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 	if [ -n "${branch}" ]; then
 		[ "${branch}" == "HEAD" ] && local branch=$(git rev-parse --short HEAD 2>/dev/null)
-		local status=$(git status --porcelain 2>/dev/null)
-		echo -n " on ${PURPLE}${branch}"
-		[ -n "${status}" ] && echo -n "*"
+		echo -n "${GREEN}"
+		local unstaged=$(git status 2>/dev/null | grep "Changes not staged for commit")
+		local staged=$(git status 2>/dev/null | grep "Changes to be committed")
+		echo -n " on "
+		[ -n "${staged}" ] && echo -n "${PURPLE}"
+		[ -n "${unstaged}" ] && echo -n "${ORANGE}"
+		echo -n "${branch}"
+		[ -n "${staged}" ] && echo -n " +staged"
+		[ -n "${unstaged}" ] && echo -n " +unstaged"
 	fi
 }
 
-export PS1="\[${BOLD}${MAGENTA}\]\u \[$WHITE\]at \[$ORANGE\]\h \[$WHITE\]in \[$GREEN\]\w\[$WHITE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
+export PS1="\[$GREEN${BOLD}\]\w\[$WHITE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
+
