@@ -47,15 +47,19 @@ function parse_git_branch() {
 	local branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 	if [ -n "${branch}" ]; then
 		[ "${branch}" == "HEAD" ] && local branch=$(git rev-parse --short HEAD 2>/dev/null)
-		echo -n "${GREEN}"
-		local unstaged=$(git status 2>/dev/null | grep "Changes not staged for commit")
-		local staged=$(git status 2>/dev/null | grep "Changes to be committed")
 		echo -n " on "
+		local stat=$(git status 2>/dev/null)
+		local unstaged=$(echo "${stat}" | grep "Changes not staged for commit")
+		local staged=$(echo "${stat}" | grep "Changes to be committed")
+		local ahead=$(echo "${stat}" | grep "Your branch is ahead of ")
+		echo -n "${GREEN}"
+		[ -n "${ahead}" ] && echo -n "${ORANGE}"
 		[ -n "${staged}" ] && echo -n "${PURPLE}"
-		[ -n "${unstaged}" ] && echo -n "${ORANGE}"
+		[ -n "${unstaged}" ] && echo -n "${MAGENTA}"
 		echo -n "${branch}"
 		[ -n "${staged}" ] && echo -n " +staged"
 		[ -n "${unstaged}" ] && echo -n " +unstaged"
+		[ -n "${ahead}" ] && echo -n " +ahead"
 	fi
 }
 
