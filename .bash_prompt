@@ -52,14 +52,17 @@ function parse_git_branch() {
 		local unstaged=$(echo "${stat}" | grep "Changes not staged for commit")
 		local staged=$(echo "${stat}" | grep "Changes to be committed")
 		local ahead=$(echo "${stat}" | grep "Your branch is ahead of ")
+		local behind=$(echo "${stat}" | grep "Your branch is behind ")
 		echo -n "${GREEN}"
 		[ -n "${ahead}" ] && echo -n "${ORANGE}"
+		[ -n "${behind}" ] && echo -n "${ORANGE}"
 		[ -n "${staged}" ] && echo -n "${PURPLE}"
 		[ -n "${unstaged}" ] && echo -n "${MAGENTA}"
 		echo -n "${branch}"
 		[ -n "${staged}" ] && echo -n " +staged"
 		[ -n "${unstaged}" ] && echo -n " +unstaged"
 		[ -n "${ahead}" ] && echo -n " +ahead"
+		[ -n "${behind}" ] && echo -n " +behind"
 	fi
 }
 
