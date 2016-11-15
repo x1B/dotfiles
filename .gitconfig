@@ -1,5 +1,14 @@
 [alias]
 
+	# View the current working tree status using the short format
+	st = status
+	# Checkout
+	co = checkout
+	# Checkin / commit
+	ci = commit
+	# Branch
+	br = branch
+
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
