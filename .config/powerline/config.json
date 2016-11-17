@@ -1,0 +1,11 @@
+{
+	"common": {
+		"term_truecolor": false
+	},
+	"ext": {
+		"shell": {
+      "colorscheme": "solarized",
+      "theme": "default_leftonly"
+    }
+  }
+}

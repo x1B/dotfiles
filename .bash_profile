@@ -1,6 +1,28 @@
 # setup `$PATH`
 export PATH="$HOME/bin:$HOME/work/bin:/usr/local/bin:$PATH"
 
+# setup nvm
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
+# git bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
+fi
+
+# powerline prompt
+export PATH="$HOME/Library/Python/3.5/bin:$PATH"
+PYTHON_PACKAGES="$HOME/Library/Python/3.5/lib/python/site-packages"
+# enable python powerline-status prompt
+if [ -f "$PYTHON_PACKAGES/powerline/bindings/bash/powerline.sh" ]; then
+  . "$PYTHON_PACKAGES/powerline/bindings/bash/powerline.sh"
+	powerline-daemon
+fi
+
+# powerline alternative: bash-only powerline-style prompt
+#source $HOME/dotfiles/bash-powerline.sh
+
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
