@@ -27,9 +27,9 @@
       "attrs": []
     },
     "information:regular": {
-      "fg": "solarized:base1",
+      "fg": "solarized:base3",
       "bg": "solarized:base02",
-      "attrs": ["bold"]
+      "attrs": []
     },
     "cwd": "information:additional",
     "cwd:current_folder": "information:regular"
